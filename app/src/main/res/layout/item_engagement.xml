@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="#F5F5F5"
+    android:layout_margin="4dp">
+
+    <TextView
+        android:id="@+id/engagementTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#2196F3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp">
+
+        <TextView
+            android:id="@+id/engagementStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="#666666" />
+
+        <TextView
+            android:id="@+id/engagementPriority"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="#666666" />
+
+        <TextView
+            android:id="@+id/engagementDueDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="#666666" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/editEngagementButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit"
+            android:backgroundTint="#2196F3"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"
+            android:layout_marginEnd="4dp"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/deleteEngagementButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:backgroundTint="#D32F2F"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"
+            android:layout_marginStart="4dp"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

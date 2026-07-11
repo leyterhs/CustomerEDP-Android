@@ -1,4 +1,4 @@
-package com.customeredp;
+package com.customeredp.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

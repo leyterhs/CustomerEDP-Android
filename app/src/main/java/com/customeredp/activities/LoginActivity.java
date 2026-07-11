@@ -1,26 +1,29 @@
-package com.customeredp;
+package com.customeredp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
+import com.customeredp.Config;
+import com.customeredp.R;
+import com.customeredp.utils.TokenManager;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.SharedPreferences;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameInput, passwordInput;
     private Button loginButton;
-    private TextView statusText;
     private TokenManager tokenManager;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         tokenManager = new TokenManager(this);
+        queue = Volley.newRequestQueue(this);
 
         if (tokenManager.getToken() != null) {
             startActivity(new Intent(this, AdminActivity.class));
@@ -38,27 +42,19 @@ public class LoginActivity extends AppCompatActivity {
         usernameInput = findViewById(R.id.usernameInput);
         passwordInput = findViewById(R.id.passwordInput);
         loginButton = findViewById(R.id.loginButton);
-        statusText = findViewById(R.id.statusText);
 
-        loginButton.setOnClickListener(v -> performLogin());
+        loginButton.setOnClickListener(v -> login());
     }
 
-    private void performLogin() {
+    private void login() {
         String username = usernameInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            statusText.setText("Please fill all fields");
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        HttpsTrustManager.allowAllSSL();
-
-        statusText.setText("Logging in...");
-        loginButton.setEnabled(false);
-
-        //http://10.0.2.2:8080 default
-        String url = "https://tapioca-resistant-grooving.ngrok-free.dev/api/auth/login";
         JSONObject body = new JSONObject();
         try {
             body.put("username", username);
@@ -67,28 +63,38 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = Config.BASE_URL + "api/auth/login";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, body,
                 response -> {
                     try {
                         String token = response.getString("token");
+                        // Αποθήκευση και στις δύο θέσεις
                         tokenManager.saveToken(token);
-                        String role = response.getString("role");
-                        getSharedPreferences("app_prefs", MODE_PRIVATE)
-                                .edit()
-                                .putString("user_role", role)
-                                .apply();
+                        SharedPreferences prefs = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                        prefs.edit().putString("jwt_token", token).apply();
+                        Log.d("LoginActivity", "Token saved: " + token);
+                        Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, AdminActivity.class));
                         finish();
                     } catch (JSONException e) {
-                        statusText.setText("Error parsing response");
+                        Toast.makeText(this, "Error parsing response", Toast.LENGTH_SHORT).show();
                     }
-                    loginButton.setEnabled(true);
                 },
                 error -> {
-                    statusText.setText("Login failed! Check credentials.");
-                    loginButton.setEnabled(true);
-                });
+                    String msg = "Login failed";
+                    if (error.networkResponse != null) {
+                        msg += " - Status: " + error.networkResponse.statusCode;
+                    }
+                    Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+                }) {
+            @Override
+            public java.util.Map<String, String> getHeaders() {
+                java.util.Map<String, String> headers = new java.util.HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("User-Agent", "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36");
+                return headers;
+            }
+        };
 
         queue.add(request);
     }

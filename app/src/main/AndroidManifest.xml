@@ -3,16 +3,17 @@
     package="com.customeredp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="CustomerEDP"
-        android:theme="@style/Theme.CustomerEDP"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".LoginActivity"
+        <!-- Login (launcher) -->
+        <activity
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +21,34 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AdminActivity" />
+        <!-- Admin Panel -->
+        <activity
+            android:name=".activities.AdminActivity"
+            android:exported="false" />
+
+        <!-- Clients -->
+        <activity
+            android:name=".activities.ClientListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.ClientFormActivity"
+            android:exported="false" />
+
+        <!-- Engagements -->
+        <activity
+            android:name=".activities.EngagementListActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activities.EngagementFormActivity"
+            android:exported="false" />
+
+        <!-- Deliveries -->
+        <activity
+            android:name=".activities.DeliveryListActivity"
+            android:exported="false" />
 
     </application>
+
 </manifest>

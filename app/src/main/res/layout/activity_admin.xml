@@ -2,124 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/background">
+    android:orientation="vertical">
 
-    <!-- Header -->
+    <include layout="@layout/toolbar" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/primary"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Admin Panel"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Logout"
-            android:backgroundTint="@color/danger"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-
-    <!-- Create User Form (Admin Only) -->
-    <LinearLayout
-        android:id="@+id/createUserLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/cardBackground"
-        android:padding="12dp"
-        android:elevation="4dp"
-        android:layout_marginBottom="16dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Create New User"
-            android:textSize="18sp"
+            android:text="Admin Panel"
+            android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="@color/primary"
-            android:layout_marginBottom="8dp" />
-
-        <EditText
-            android:id="@+id/newUsernameInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            android:backgroundTint="@color/primary" />
-
-        <EditText
-            android:id="@+id/newEmailInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:backgroundTint="@color/primary" />
-
-        <EditText
-            android:id="@+id/newPasswordInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:backgroundTint="@color/primary" />
-
-        <Spinner
-            android:id="@+id/roleSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/roles" />
+            android:textColor="#2196F3" />
 
         <Button
-            android:id="@+id/createUserButton"
+            android:id="@+id/btnViewClients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create User"
-            android:backgroundTint="@color/success"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="20dp"
+            android:text="Προβολή Πελατών"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/btnAddClient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Προσθήκη Πελάτη"
+            android:padding="16dp" />
+			
+		<Button
+			android:id="@+id/btnViewEngagements"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:text="Προβολή Engagements"
+			android:padding="16dp" />
+		
+		<!-- <Button
+			android:id="@+id/btnViewDeliveries"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:text="Προβολή Παραδόσεων"
+			android:padding="16dp" /> -->
+		
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Αποσύνδεση"
+            android:padding="16dp"
+            android:backgroundTint="#D32F2F" />
+
     </LinearLayout>
-
-    <!-- Access Denied Message (για MEMBER) -->
-    <TextView
-        android:id="@+id/accessDeniedText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Access Denied: You do not have permission to manage users."
-        android:textSize="16sp"
-        android:textColor="@color/danger"
-        android:gravity="center"
-        android:visibility="gone"
-        android:padding="20dp" />
-
-    <!-- All Users -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="All Users"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:layout_marginTop="8dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/usersRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="8dp" />
-
 </LinearLayout>
